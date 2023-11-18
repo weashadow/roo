@@ -1,0 +1,9 @@
+/target
+/Cargo.lock
+
+# general ignored files
+**/.DS_Store
+**/.vscode
+**/.idea
+**/*.iml
+**/*.log
