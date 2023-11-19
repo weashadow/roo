@@ -10,7 +10,7 @@ To use Roo in your project, add the following to your `Cargo.toml` file:
 
 ```toml
 [dependencies]
-roo = "0.1.0"
+roo_parser = "0.1.0"
 ```
 
 Then run `cargo build` to download and compile Roo.

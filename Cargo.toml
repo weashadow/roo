@@ -1,6 +1,8 @@
 
 [package]
 name = "roo_parser"
+description = "Roo is a Rust library that enables you to parse `.goo` files."
+license = "MIT"
 version = "0.1.0"
 edition = "2021"
 
