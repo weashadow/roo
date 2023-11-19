@@ -134,6 +134,7 @@ mod tests {
 
         let mut count = 0;
         while let Some(layer) = roo.next() {
+            println!("layer: {:?}", layer);
             count += 1;
         }
 
