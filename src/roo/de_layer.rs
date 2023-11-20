@@ -1,10 +1,10 @@
-use std::{cell::RefCell, fs::File, io::{BufReader, Seek}, rc::Rc, ops::Add};
+use std::{cell::RefCell, fs::File, io::{BufReader, Seek}, rc::Rc};
 
 use super::{layer::Layer, utils::{read_u16, read_float, read_u32}};
 
 impl Layer {
-    pub fn deserializer(reader: Rc<RefCell<BufReader<File>>>) -> Self {
-        let reader = &mut reader.borrow_mut();
+    pub fn deserializer(r: Rc<RefCell<BufReader<File>>>) -> Self {
+        let reader = &mut r.borrow_mut();
         let pause = read_u16(reader);
         let pause_position_z = read_float(reader);
         let position_z = read_float(reader);
@@ -33,6 +33,8 @@ impl Layer {
         let next_layer_address = pos;
         
         return Self {
+          buf_reader: r.clone(),
+          
           pause,
           pause_position_z,
           position_z,
@@ -52,6 +54,8 @@ impl Layer {
           light_pwm,
           data_length,
           next_layer_address,
+
+          rle_data_position: 0x0,
         };
     }
 }

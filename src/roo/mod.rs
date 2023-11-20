@@ -6,7 +6,7 @@ use std::{
 };
 mod de_layer;
 mod de_roo;
-mod layer;
+pub mod layer;
 mod utils;
 
 #[derive(Debug)]
@@ -76,7 +76,7 @@ pub struct Roo {
     pub transition_layer_count: u16,
 
     pub current_layer: u32,
-    pub next_layer_address: u64,
+    pub(crate) next_layer_address: u64,
 
     buf_reader: Rc<RefCell<BufReader<File>>>,
 }
@@ -95,6 +95,14 @@ impl Roo {
         let reader = BufReader::new(file);
 
         return Roo::from_reader(Rc::new(RefCell::new(reader)));
+    }
+
+    pub fn get_small_preview() -> Vec<u8> {
+        todo!();
+    }
+
+    pub fn get_big_preview() -> Vec<u8> {
+        todo!();
     }
 }
 

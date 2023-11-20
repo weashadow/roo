@@ -1,6 +1,10 @@
+use std::{rc::Rc, cell::RefCell, io::{BufReader, Seek, Read}, fs::File};
+
 
 #[derive(Debug)]
 pub struct Layer {
+  pub(crate) buf_reader: Rc<RefCell<BufReader<File>>>,
+
   pub pause: u16,
   pub pause_position_z: f32,
   pub position_z: f32,
@@ -19,8 +23,17 @@ pub struct Layer {
   pub retract_speed_2: f32,
   pub light_pwm: u16,
   pub data_length: u32,
-  pub next_layer_address: u64,
+  pub(crate) next_layer_address: u64,
+
+  pub(crate) rle_data_position: u64,
 }
 
 impl Layer {
+  pub fn get_rle_data(&mut self) -> Vec<u8> {
+    let mut reader = self.buf_reader.borrow_mut();
+    reader.seek(std::io::SeekFrom::Start(self.rle_data_position)).unwrap();
+    let mut data = vec![0; self.data_length as usize];
+    reader.read_exact(&mut data).unwrap();
+    return data;
+  }
 }
